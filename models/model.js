@@ -4,16 +4,20 @@ exports.jwcSchema = new schema({
     url: String,
     title: String,
     createTime: String,
-    insert: String,
-    img: Array,
-    pdf: Array
+    init: {
+        text: Array,
+        imgs: Array,
+        pdf: Array
+    }
 })
 exports.neauMainSchema = new schema({
     url: String,
     title: String,
     createTime: String,
-    insert: String,
-    img: Array
+    init: {
+        text: Array,
+        imgs: Array,
+    }
 })
 exports.neauPictureSchema = new schema({
     url: String,

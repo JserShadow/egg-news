@@ -3,7 +3,6 @@ const async = require('async');
 const urlParser = require('./urlParser.js');
 const dataParser = require('../data-parser/neau-main-parser.js');
 const insertParser = require('../data-parser/neau-insert-parser.js');
-const imgParser = require('../data-parser/neau-img-parser.js');
 
 const newsUrl = 'http://www.neau.edu.cn/list.jsp?urltype=tree.TreeTempUrl&wbtreeid=1194';
 const noticeUrl = 'http://www.neau.edu.cn/list.jsp?urltype=tree.TreeTempUrl&wbtreeid=1175';
@@ -18,8 +17,7 @@ function getNeauInsert(arr,callback) {
     async.eachLimit(loopArr,2,(index,callback) => {
         url = arr[index].href;
         request(url,(err,res,body) => {
-            arr[index].insert = insertParser(body);
-            arr[index].img = imgParser(body);
+            arr[index].init = insertParser(body);
             callback();
         })
     },(err) => {

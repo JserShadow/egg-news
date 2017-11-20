@@ -2,9 +2,6 @@ const request = require('request');
 const urlPar = require('./urlParser.js');
 const dataParser = require('../data-parser/jwc-titles-parser.js');
 const insertParser = require('../data-parser/jwc-insert-parser.js');
-const imgParser = require('../data-parser/jwc-img-parser.js');
-const pdfParser = require('../data-parser/jwc-pdf-parser.js');
-
 const newsUrl = 'http://jwc.neau.edu.cn/wejlist.jsp?urltype=tree.TreeTempUrl&wbtreeid=1887';
 const noticeUrl = 'http://jwc.neau.edu.cn/wejlist.jsp?urltype=tree.TreeTempUrl&wbtreeid=1888';
 const examUrl = 'http://jwc.neau.edu.cn/wejlist.jsp?urltype=tree.TreeTempUrl&wbtreeid=1988';
@@ -16,9 +13,7 @@ function getJwcInsert(arr,callback) {
     async.eachLimit(loopArr,10,function (index,callback) {
         url = arr[index].href;
         request(url,(err,res,body) => {
-            arr[index].insert = insertParser(body);
-            arr[index].img = imgParser(body);
-            arr[index].pdf = pdfParser(body);
+            arr[index].init = insertParser(body);
             callback();
         })
     },(err) => {
