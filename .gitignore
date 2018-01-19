@@ -10,3 +10,8 @@ run/
 .DS_Store
 *.sw*
 *.un~
+*.yml
+.vscode/
+test/
+.eslintignore
+.eslintrc
