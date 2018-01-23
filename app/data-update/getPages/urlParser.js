@@ -4,9 +4,7 @@ const request = require('request');
 const cheerio = require('cheerio');
 function objGetter(mainUrl, callback) {
   request(mainUrl, (err, res, body) => {
-    console.log(0, body, mainUrl);
     const $ = cheerio.load(body, { decodeEntities: false });
-    console.log(1);
     const urlObj = {};
     const href = $('a.Next').attr('href');
     urlObj.url = mainUrl.split('?')[0] + href;

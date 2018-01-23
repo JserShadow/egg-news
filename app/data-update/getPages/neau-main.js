@@ -46,40 +46,16 @@ function neauMain(selectorstr, callback) {
   }
   urlParser(url, function(urlObj) {
     const arr = [];
-    let flag = 0;
-    const urlerr = [];
-    const loopArr = Array.from({ length: urlObj.pageNum }, (v, i) => i);
-    async.eachLimit(loopArr, 2, (index, callback) => {
-      const url = urlObj.part1 + (index + 1) + urlObj.part2;
-      request(url, (err, res, body) => {
-        if (err) {
-          console.log(err);
-          callback();
-        }
-        if (!body) {
-          urlerr.push(url);
-          flag++;
-          if (flag >= 10) {
-            setTimeout(() => {
-              for (let i = 0; i < urlerr.length; i++) {
-                request(urlerr[i], (err1, res1, body1) => {
-                  arr.push(...dataParser(body1));
-                  callback();
-                });
-              }
-            }, 10000);
-          }
-        } else {
-          arr.push(...dataParser(body));
-          callback();
-        }
-      });
-    }, function(err) {
-      if (err) {
+    const url = urlObj.part1 + 1 + urlObj.part2;
+    request(url, (err, res, body) => {
+      if (err || !body) {
         console.log(err);
+        return;
       }
+      arr.push(...dataParser(body));
       getNeauInsert(arr, function(arr) {
         callback(arr);
+        return;
       });
     });
   });

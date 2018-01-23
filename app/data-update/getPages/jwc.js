@@ -33,44 +33,18 @@ function getJwcPages(selectstr, callback) {
   } else if (selectstr === 'exam') {
     mainUrl = examUrl;
   }
-  console.log(mainUrl);
   urlPar(mainUrl, function(data) {
     const arr = [];
-    let flag = 0;
-    const urlerr = [];
-    const loopArr = Array.from({ length: data.pageNum }, (v, i) => i);
-    async.eachLimit(loopArr, 10, function(index, callback) {
-      const url = data.part1 + (index + 1) + data.part2;
-      request(url, (err, res, body) => {
-        if (err) {
-          console.log(err);
-          callback();
-        }
-        if (!body) {
-          urlerr.push(url);
-          flag++;
-          if (flag >= 10) {
-            setTimeout(() => {
-              for (let i = 0; i < urlerr.length; i++) {
-                request(urlerr[i], (err1, res1, body1) => {
-                  arr.push(...dataParser(body));
-                  callback();
-                });
-              }
-            }, 10000);
-          }
-        } else {
-          arr.push(...dataParser(body));
-          callback();
-        }
-      });
-    }, function(err) {
-      if (err) {
+    const url = data.part1 + 1 + data.part2;
+    request(url, (err, res, body) => {
+      if (err || !body) {
         console.log(err);
+      } else {
+        arr.push(...dataParser(body));
+        getJwcInsert(arr, function(arr) {
+          callback(arr);
+        });
       }
-      getJwcInsert(arr, function(arr) {
-        callback(arr);
-      });
     });
   });
 }
