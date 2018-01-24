@@ -4,28 +4,44 @@ const Controller = require('egg').Controller;
 
 class NeauController extends Controller {
   async news() {
-    this.ctx.body = await this.ctx.model.Neaunews.find({});
+    const { skip } = this.ctx.query;
+    this.ctx.body = await this.ctx.model.Neaunews.find({}).sort({ createTime: -1 }).limit(20)
+      .skip(parseInt(skip));
   }
   async notices() {
-    this.ctx.body = await this.ctx.model.Neaunotices.find({});
+    const { skip } = this.ctx.query;
+    this.ctx.body = await this.ctx.model.Neaunotices.find({}).sort({ createTime: -1 }).limit(20)
+      .skip(parseInt(skip));
   }
   async pictures() {
-    this.ctx.body = await this.ctx.model.Neaupictures.find({});
+    const { skip } = this.ctx.query;
+    this.ctx.body = await this.ctx.model.Neaupictures.find({}).sort({ createTime: -1 }).limit(20)
+      .skip(parseInt(skip));
   }
   async socials() {
-    this.ctx.body = await this.ctx.model.Neausocials.find({});
+    const { skip } = this.ctx.query;
+    this.ctx.body = await this.ctx.model.Neausocials.find({}).sort({ createTime: -1 }).limit(20)
+      .skip(parseInt(skip));
   }
   async medias() {
-    this.ctx.body = await this.ctx.model.Neaumedias.find({});
+    const { skip } = this.ctx.query;
+    this.ctx.body = await this.ctx.model.Neaumedias.find({}).sort({ createTime: -1 }).limit(20)
+      .skip(parseInt(skip));
   }
   async events() {
-    this.ctx.body = await this.ctx.model.Neauevents.find({});
+    const { skip } = this.ctx.query;
+    this.ctx.body = await this.ctx.model.Neauevents.find({}).sort({ createTime: -1 }).limit(20)
+      .skip(parseInt(skip));
   }
   async enrollments() {
-    this.ctx.body = await this.ctx.model.Neauenrollments.find({});
+    const { skip } = this.ctx.query;
+    this.ctx.body = await this.ctx.model.Neauenrollments.find({}).sort({ createTime: -1 }).limit(20)
+      .skip(parseInt(skip));
   }
   async bases() {
-    this.ctx.body = await this.ctx.model.Neaubases.find({});
+    const { skip } = this.ctx.query;
+    this.ctx.body = await this.ctx.model.Neaubases.find({}).sort({ createTime: -1 }).limit(20)
+      .skip(parseInt(skip));
   }
 }
 
