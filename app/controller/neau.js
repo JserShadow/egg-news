@@ -3,45 +3,41 @@
 const Controller = require('egg').Controller;
 
 class NeauController extends Controller {
+  async count() {
+    const result = await this.ctx.model.Neaunews.count();
+    this.ctx.body = {
+      count: result,
+    };
+  }
   async news() {
     const { skip } = this.ctx.query;
-    this.ctx.body = await this.ctx.model.Neaunews.find({}).sort({ createTime: -1 }).limit(20)
-      .skip(parseInt(skip));
+    const contents = await this.ctx.model.Neaunews.find({}).sort({ createTime: -1 }).limit(15)
+      .skip((parseInt(skip) - 1) * 15);
+    const count = await this.ctx.model.Neaunews.count();
+    this.ctx.body = {
+      number: count,
+      list: contents,
+    };
   }
   async notices() {
     const { skip } = this.ctx.query;
-    this.ctx.body = await this.ctx.model.Neaunotices.find({}).sort({ createTime: -1 }).limit(20)
-      .skip(parseInt(skip));
-  }
-  async pictures() {
-    const { skip } = this.ctx.query;
-    this.ctx.body = await this.ctx.model.Neaupictures.find({}).sort({ createTime: -1 }).limit(20)
-      .skip(parseInt(skip));
-  }
-  async socials() {
-    const { skip } = this.ctx.query;
-    this.ctx.body = await this.ctx.model.Neausocials.find({}).sort({ createTime: -1 }).limit(20)
-      .skip(parseInt(skip));
-  }
-  async medias() {
-    const { skip } = this.ctx.query;
-    this.ctx.body = await this.ctx.model.Neaumedias.find({}).sort({ createTime: -1 }).limit(20)
-      .skip(parseInt(skip));
-  }
-  async events() {
-    const { skip } = this.ctx.query;
-    this.ctx.body = await this.ctx.model.Neauevents.find({}).sort({ createTime: -1 }).limit(20)
-      .skip(parseInt(skip));
+    const contents = await this.ctx.model.Neaunotices.find({}).sort({ createTime: -1 }).limit(15)
+      .skip((parseInt(skip) - 1) * 15);
+    const count = await this.ctx.model.Neaunotices.count();
+    this.ctx.body = {
+      number: count,
+      list: contents,
+    };
   }
   async enrollments() {
     const { skip } = this.ctx.query;
-    this.ctx.body = await this.ctx.model.Neauenrollments.find({}).sort({ createTime: -1 }).limit(20)
-      .skip(parseInt(skip));
-  }
-  async bases() {
-    const { skip } = this.ctx.query;
-    this.ctx.body = await this.ctx.model.Neaubases.find({}).sort({ createTime: -1 }).limit(20)
-      .skip(parseInt(skip));
+    const contents = await this.ctx.model.Neauenrollments.find({}).sort({ createTime: -1 }).limit(15)
+      .skip((parseInt(skip) - 1) * 15);
+    const count = await this.ctx.model.Neauenrollments.count();
+    this.ctx.body = {
+      number: count,
+      list: contents,
+    };
   }
 }
 
