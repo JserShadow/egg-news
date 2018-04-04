@@ -22,4 +22,6 @@ module.exports = app => {
   // router.get('/neau/base', controller.neau.bases);
   // 请求详情页数据
   router.post('/getdetail', controller.detail.getdetail);
+
+  router.post('/search', controller.search.search);
 };
