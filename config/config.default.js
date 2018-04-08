@@ -5,7 +5,9 @@ module.exports = appInfo => {
 
   // use for cookie sign key, should change to your own and keep security
   config.keys = appInfo.name + '_1515842211734_9974';
-
+  config.neauNoticeUrl = 'http://www.neau.edu.cn/list.jsp?a60559t=500&a60559p=1&a60559c=300&urltype=tree.TreeTempUrl&wbtreeid=1175';
+  config.jwcNoticeUrl = 'http://jwc.neau.edu.cn/wejlist.jsp?a3t=30&a3p=1&a3c=200&urltype=tree.TreeTempUrl&wbtreeid=1888';
+  config.jwcExamUrl = 'http://jwc.neau.edu.cn/wejlist.jsp?a3t=16&a3p=1&a3c=100&urltype=tree.TreeTempUrl&wbtreeid=1988';
   // add your config here
   config.middleware = [];
   config.mongoose = {

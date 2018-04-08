@@ -5,6 +5,7 @@ const cheerio = require('cheerio');
 function neauMainParser(bodystr) {
   if (bodystr) {
     const $ = cheerio.load(bodystr);
+    console.log($('ul.title'));
     const result = [];
     const obj = {};
     $('div.title a').each(function(i, e) {

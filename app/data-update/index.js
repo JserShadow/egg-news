@@ -9,7 +9,7 @@ exports.jwcnews = function() {
   return new Promise((resolve, reject) => {
     jwc('news', function(data) {
       const model = mongoose.model('jwcNews', models.jwcSchema);
-      data.forEach(function(element) {
+      data.forEach(async function(element) {
         const infoObj = {
           url: element.href,
           title: element.title,
@@ -21,8 +21,15 @@ exports.jwcnews = function() {
           },
         };
         const position = { url: element.href };
-        const option = { upsert: true, multi: true };
-        model.update(position, infoObj, option);
+        const findRes = await model.find(position);
+        console.log('hahaha' + findRes);
+        if (findRes.length === 0) {
+          const newInfo = new model(infoObj);
+          newInfo.save();
+        } else {
+          const option = { upsert: true, multi: true };
+          model.update(position, infoObj, option);
+        }
       }, this);
       resolve('jwcnews complete');
     });
