@@ -5,7 +5,6 @@ const cheerio = require('cheerio');
 function neauMainParser(bodystr) {
   if (bodystr) {
     const $ = cheerio.load(bodystr);
-    console.log($('ul.title'));
     const result = [];
     const obj = {};
     $('div.title a').each(function(i, e) {
@@ -13,9 +12,9 @@ function neauMainParser(bodystr) {
       if ($(e).attr('href').startsWith('http')) {
         obj.href = $(e).attr('href');
       } else {
-        obj.href = 'http://www.neau.edu.cn' + $(e).attr('href');
+        obj.url = 'http://www.neau.edu.cn' + $(e).attr('href');
       }
-      obj.time = $(e).parents('div.title').next('strong')
+      obj.createTime = $(e).parents('div.title').next('strong')
         .text()
         .substring(1, 11);
       const newObj = {};
